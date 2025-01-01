@@ -1,0 +1,75 @@
+package REST;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
+import org.testng.annotations.Test;
+
+import java.util.HashMap;
+
+public class Restassured {
+
+    int id;
+
+    @Test(priority=3 )
+         public void getUser() {  // Changed to non-static method
+        given()
+                .when()
+                .get("https://reqres.in/api/users?page=2")
+                .then()
+                .statusCode(200)
+                .body("page", equalTo(2))
+                .log().all();
+
+
+    }
+
+    @Test (priority=1)
+    public void createUser() {
+
+        HashMap<String,String> usr = new HashMap<>();
+        usr.put("name", "morpheus");
+        usr.put("job", "leader");
+        // Changed to non-static method
+        id =given()
+                .contentType("application/json")
+                .body(usr)
+                .when()
+                .post("https://reqres.in/api/users")
+                .jsonPath().getInt("id");
+
+
+
+
+    }
+    @Test(priority=2)
+    public void updateUser() {
+
+        HashMap<String,String> usr = new HashMap<>();
+        usr.put("name", "Priya");
+        usr.put("job", "Influencer");
+        // Changed to non-static method
+        given()
+                .contentType("application/json")
+                .body(usr)
+                .when()
+                .put("https://reqres.in/api/users/"+id)
+                .then()
+                .statusCode(200)
+                .log().all();
+
+
+
+    }
+
+    @Test(priority=4)
+    public void deleteuser()
+    {
+        given()
+                .when()
+                .delete("https://reqres.in/api/users/"+id)
+                .then()
+                .statusCode(204)
+                .log().all();
+    }
+}
