@@ -19,6 +19,10 @@ Feature:Validating createuser,updateuser,getuser and delete
   Scenario: Validating Update user
     Then Update user
   @Test(priority=3)
+  Scenario: Get user by id
+    Then Get user by id
+
+  @Test(priority=4)
   Scenario: Validating Delete user user
     Then Delete user
 

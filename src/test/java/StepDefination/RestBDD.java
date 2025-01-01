@@ -98,6 +98,26 @@ public class RestBDD {
 
     }
 
+    @Then("Get user by id")
+    public void GetbyID() {
+
+        HashMap<String,String> usr = new HashMap<>();
+        usr.put("name", "Priya");
+        usr.put("job", "Influencer");
+        // Changed to non-static method
+        given()
+                .contentType("application/json")
+                .queryParam("id",2)
+                .when()
+                .get("https://reqres.in/api/users/")
+                .then()
+                .statusCode(200)
+                .log().all();
+
+
+
+    }
+
     @Then("Delete user")
      public void deleteuser()
     {
