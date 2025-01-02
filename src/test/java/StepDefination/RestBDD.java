@@ -4,11 +4,9 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.given;
 import static org.hamcrest.Matchers.equalTo;
 
-import io.cucumber.java.Scenario;
+import POJO.POJO;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,6 +15,7 @@ import java.util.Properties;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.testng.Assert;
 
 public class RestBDD {
 
@@ -109,13 +108,32 @@ public class RestBDD {
                 .contentType("application/json")
                 .queryParam("id",2)
                 .when()
-                .get("https://reqres.in/api/users/")
+                .get("https://reqres.in/api/users/1")
                 .then()
                 .statusCode(200)
                 .log().all();
 
 
 
+    }
+
+    @Then("validate Json")
+    public void validatejson()
+    {
+        response = given()
+                .when()
+                .get("https://reqres.in/api/users/")
+                .then()
+                .extract()
+                        .response();
+
+        System.out.println("Response Body: " + response.getBody().asString());
+        POJO users = response.as(POJO.class);
+
+
+        System.out.println("Page: " + users.getPage());
+        System.out.println("First User Email: " + users.getData().get(0).getEmail());
+        System.out.println("Support URL: " + users.getSupport().getUrl());
     }
 
     @Then("Delete user")

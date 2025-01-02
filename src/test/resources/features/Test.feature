@@ -23,6 +23,10 @@ Feature:Validating createuser,updateuser,getuser and delete
     Then Get user by id
 
   @Test(priority=4)
+  Scenario: validate Json
+    Then validate Json
+
+  @Test(priority=4)
   Scenario: Validating Delete user user
     Then Delete user
 
