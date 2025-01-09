@@ -1,24 +1,31 @@
 package StepDefination;
 
-import static io.restassured.RestAssured.given;
-import static io.restassured.path.json.JsonPath.given;
-import static org.hamcrest.Matchers.equalTo;
-
 import POJO.POJO;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import org.testng.Assert;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
 
 public class RestBDD {
 
+   // WebDriver driver = new ChromeDriver();
     int id;
     private Properties properties = new Properties();
     private Response response;
@@ -28,8 +35,9 @@ public class RestBDD {
       System.out.println("Background");
 
 
-  }
 
+  }
+    @Test(priority=1)
     @Given("Load Property File")
     public void LoadProperty() {  // Changed to non-static method
         {
@@ -43,11 +51,12 @@ public class RestBDD {
 
     }
 
-
+    @Test(priority=2)
     @Given("Get User")
      public void getUser() {
         String baseUrl = properties.getProperty("base.uri1");
-        String url = baseUrl + "/api/users?page=2"; // Changed to non-static method
+       // String url = baseUrl + "/api/users?page=2";
+        String url = baseUrl + Hook.apiVersion + "/users?page=2";// Changed to non-static method
         given()
                  .when()
                 .get(url)
@@ -58,7 +67,7 @@ public class RestBDD {
 
 
     }
-
+    @Test(priority=3)
     @When("Create User")
     public void createUser() {
 
@@ -77,6 +86,7 @@ public class RestBDD {
 
 
     }
+    @Test(priority=4)
   @Then("Update user")
     public void updateUser() {
 
@@ -97,6 +107,7 @@ public class RestBDD {
 
     }
 
+    @Test(enabled=false)
     @Then("Get user by id")
     public void GetbyID() {
 
@@ -116,7 +127,7 @@ public class RestBDD {
 
 
     }
-
+    @Test(priority=5)
     @Then("validate Json")
     public void validatejson()
     {
@@ -134,8 +145,17 @@ public class RestBDD {
         System.out.println("Page: " + users.getPage());
         System.out.println("First User Email: " + users.getData().get(0).getEmail());
         System.out.println("Support URL: " + users.getSupport().getUrl());
-    }
 
+        Assert.assertEquals(users.getPage(), 1);
+
+        // Validate the first user's email in the response
+        Assert.assertEquals(users.getData().get(0).getEmail(), "george.bluth@reqres.in");
+
+        // Validate other user details if required (e.g., first name, last name)
+        Assert.assertEquals(users.getData().get(0).getfirst_name(), "George");
+        Assert.assertEquals(users.getData().get(0).getlast_name(), "Bluth");
+    }
+    @Test(priority=6)
     @Then("Delete user")
      public void deleteuser()
     {
@@ -146,4 +166,8 @@ public class RestBDD {
                 .statusCode(204)
                 .log().all();
     }
+
+
+
+
 }

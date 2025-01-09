@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite" parallel="classes">
-    <test name="TestGroup1" verbose="2" preserve-order="true">
+    <test name="TestGroup1" verbose="2" preserve-order="false">
         <classes>
             <!-- Test class 1 for Step Definitions -->
             <class name="Runner.Runcucumber">
@@ -9,7 +9,7 @@
 
             <!-- Test class 2 for additional REST methods (if needed, uncomment and define) -->
             <!--
-            <class name="REST.Boolianmehod">
+            <class name="StepDefination.RestBDD">
                 <methods>
                     <include name="boolian"/>
                 </methods>

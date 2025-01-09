@@ -4,29 +4,31 @@ Feature:Validating createuser,updateuser,getuser and delete
 
   @Before
   @After
+  @AfterMethod
 
 
 
-  @Test(priority=0)
+@Test
   Scenario: Get user
       Given Load Property File
        Given Get User
 
-  @Test(priority=1)
+  @Test
   Scenario: Validating Create User
     When Create User
-  @Test(priority=2)
+  @Test
   Scenario: Validating Update user
     Then Update user
-  @Test(priority=3)
+  @Test
   Scenario: Get user by id
     Then Get user by id
 
-  @Test(priority=4)
+
+  @Test
   Scenario: validate Json
     Then validate Json
 
-  @Test(priority=4)
+  @Test
   Scenario: Validating Delete user user
     Then Delete user
 
