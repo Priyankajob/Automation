@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="classes">
+    <test name="TestGroup1" verbose="2" preserve-order="false">
+        <classes>
+            <!-- Test class for Step Definitions -->
+            <class name="Runner.Runcucumber">
+            </class>
+
+            <!-- Test class for additional REST methods -->
+            <class name="StepDefination.RestBDD">
+                <methods>
+                    <include name="LoadProperty"/>
+                    <include name="getUser"/>
+                    <include name="createUser"/>
+                    <include name="updateUser"/>
+                    <include name="GetbyID"/>
+                    <include name="validatejson"/>
+                    <include name="deleteuser"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

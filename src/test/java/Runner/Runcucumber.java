@@ -7,7 +7,7 @@ import io.cucumber.testng.CucumberOptions;
         features = "src/test/resources/features/Test.feature",  // Path to the feature files
         glue = "StepDefination",  // Path to the step definition package
         plugin = {"pretty", "html:target/cucumber-reports.html"},  // Optional plugins for report generation
-        tags = "",  // Optional tag to filter scenarios
+        tags = "@Test",  // Optional tag to filter scenarios
         monochrome = true   // Set to true for more readable console output
 )
 public class Runcucumber extends AbstractTestNGCucumberTests {
