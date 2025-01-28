@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +26,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class RestBDD {
 
-   // WebDriver driver = new ChromeDriver();
+   WebDriver driver = new ChromeDriver();
     int id;
     private Properties properties = new Properties();
     private Response response;
@@ -79,8 +80,10 @@ public class RestBDD {
                 .contentType("application/json")
                 .body(usr)
                 .when()
-                .post("https://reqres.in/api/users")
-                .jsonPath().getInt("id");
+                .post("https://reqres.in/api/users/")
+                 .jsonPath().getInt("id");
+
+
 
 
 
@@ -136,7 +139,12 @@ public class RestBDD {
                 .get("https://reqres.in/api/users/")
                 .then()
                 .extract()
-                        .response();
+                      .response();
+
+
+
+
+
 
         System.out.println("Response Body: " + response.getBody().asString());
         POJO users = response.as(POJO.class);

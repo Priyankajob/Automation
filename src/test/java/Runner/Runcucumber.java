@@ -4,7 +4,8 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-        features = "src/test/resources/features/Test.feature",  // Path to the feature files
+     //  features = "src/test/resources/features/Test.feature",  // Path to the feature files
+         features = "src/test/resources/features/WebUi.feature",  //Path to the feature files
         glue = "StepDefination",  // Path to the step definition package
         plugin = {"pretty", "html:target/cucumber-reports.html"},  // Optional plugins for report generation
         tags = "@Test",  // Optional tag to filter scenarios
