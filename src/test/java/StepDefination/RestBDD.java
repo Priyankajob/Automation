@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -25,8 +26,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class RestBDD {
 
-   // WebDriver driver = new ChromeDriver();
-    int id;
+   //WebDriver driver = new ChromeDriver();
+    String id;
     private Properties properties = new Properties();
     private Response response;
 
@@ -79,8 +80,12 @@ public class RestBDD {
                 .contentType("application/json")
                 .body(usr)
                 .when()
-                .post("https://reqres.in/api/users")
-                .jsonPath().getInt("id");
+                .post("https://reqres.in/api/users/")
+                 .jsonPath().getString("id");
+
+
+
+
 
 
 
@@ -96,6 +101,7 @@ public class RestBDD {
         // Changed to non-static method
         given()
                 .contentType("application/json")
+                .header("x-api-key","reqres-free-v1")
                 .body(usr)
                 .when()
                 .put("https://reqres.in/api/users/"+id)
@@ -117,6 +123,7 @@ public class RestBDD {
         // Changed to non-static method
         given()
                 .contentType("application/json")
+                .header("x-api-key","reqres-free-v1")
                 .queryParam("id",2)
                 .when()
                 .get("https://reqres.in/api/users/1")
@@ -132,11 +139,17 @@ public class RestBDD {
     public void validatejson()
     {
         response = given()
+                .header("x-api-key","reqres-free-v1")
                 .when()
                 .get("https://reqres.in/api/users/")
                 .then()
                 .extract()
-                        .response();
+                      .response();
+
+
+
+
+
 
         System.out.println("Response Body: " + response.getBody().asString());
         POJO users = response.as(POJO.class);
@@ -160,6 +173,7 @@ public class RestBDD {
      public void deleteuser()
     {
         given()
+                .header("x-api-key","reqres-free-v1")
                 .when()
                 .delete("https://reqres.in/api/users/"+id)
                 .then()

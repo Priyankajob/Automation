@@ -8,8 +8,8 @@ Feature:Validating createuser,updateuser,getuser and delete
 
 
 
-@Test
-  Scenario: Get user
+  @Test
+  Scenario: Get users
       Given Load Property File
        Given Get User
 
