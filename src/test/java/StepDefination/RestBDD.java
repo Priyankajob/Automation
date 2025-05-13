@@ -26,8 +26,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class RestBDD {
 
-   WebDriver driver = new ChromeDriver();
-    int id;
+   //WebDriver driver = new ChromeDriver();
+    String id;
     private Properties properties = new Properties();
     private Response response;
 
@@ -81,7 +81,9 @@ public class RestBDD {
                 .body(usr)
                 .when()
                 .post("https://reqres.in/api/users/")
-                 .jsonPath().getInt("id");
+                 .jsonPath().getString("id");
+
+
 
 
 
@@ -99,6 +101,7 @@ public class RestBDD {
         // Changed to non-static method
         given()
                 .contentType("application/json")
+                .header("x-api-key","reqres-free-v1")
                 .body(usr)
                 .when()
                 .put("https://reqres.in/api/users/"+id)
@@ -120,6 +123,7 @@ public class RestBDD {
         // Changed to non-static method
         given()
                 .contentType("application/json")
+                .header("x-api-key","reqres-free-v1")
                 .queryParam("id",2)
                 .when()
                 .get("https://reqres.in/api/users/1")
@@ -135,6 +139,7 @@ public class RestBDD {
     public void validatejson()
     {
         response = given()
+                .header("x-api-key","reqres-free-v1")
                 .when()
                 .get("https://reqres.in/api/users/")
                 .then()
@@ -168,6 +173,7 @@ public class RestBDD {
      public void deleteuser()
     {
         given()
+                .header("x-api-key","reqres-free-v1")
                 .when()
                 .delete("https://reqres.in/api/users/"+id)
                 .then()
